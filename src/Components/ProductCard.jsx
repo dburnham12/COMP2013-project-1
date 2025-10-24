@@ -9,8 +9,8 @@ export default function ProductCard({
     image,
     price,
     productQuantity,
-    addItemToCart,
-    updateQuantity,
+    handleAddItemToCart,
+    handleUpdateQuantity,
 }) {
     return (
         <div className="ProductCard">
@@ -20,13 +20,18 @@ export default function ProductCard({
                 {brand} ({quantity})
             </h5>
             {/* Add a quantity counter with mode 0 to update products instead of cart */}
-            <QuantityCounter id={id} mode={0} itemQuantity={productQuantity.quantity} updateQuantity={updateQuantity} />
+            <QuantityCounter
+                id={id}
+                mode={0}
+                itemQuantity={productQuantity.quantity}
+                handleUpdateQuantity={handleUpdateQuantity}
+            />
             <p>{price}</p>
             {/* Add a button to add an item to cart */}
             <button
                 onClick={() => {
                     // Set up a new object and use the addItemToCart function to add it to the cart
-                    addItemToCart({
+                    handleAddItemToCart({
                         id,
                         productName,
                         brand,

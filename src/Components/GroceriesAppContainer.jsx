@@ -33,7 +33,7 @@ export default function GroceriesAppContainer({ products }) {
     };
 
     // Function used to update the quantity of items either in cart card or product card
-    const updateQuantity = (id, increment, mode) => {
+    const handleUpdateQuantity = (id, increment, mode) => {
         // 0 is the mode to add to item total
         if (mode === 0) {
             // Use map to cycle through each item in product quantites and update them
@@ -88,7 +88,7 @@ export default function GroceriesAppContainer({ products }) {
             });
 
             // If we are to remove the item then call removeItemFromCart function to do so
-            if (removeItem) removeItemFromCart(id);
+            if (removeItem) handleRemoveItemFromCart(id);
             // Update cart items to our newly mapped array and update cart total
             else {
                 setCartTotal(calculateCartTotal(newCartItems));
@@ -98,7 +98,7 @@ export default function GroceriesAppContainer({ products }) {
     };
 
     // Function to add an item to the cart
-    const addItemToCart = (newItem) => {
+    const handleAddItemToCart = (newItem) => {
         // If our item quantity is 0 dont add the item and display an alert
         if (newItem.quantity === 0) {
             alert(`Trying to add: ${newItem.productName} \nNumber of items cannot be 0`);
@@ -141,7 +141,7 @@ export default function GroceriesAppContainer({ products }) {
     };
 
     // Function to remove an item from the cart
-    const removeItemFromCart = (id) => {
+    const handleRemoveItemFromCart = (id) => {
         // Filter the items to only include items without a specified id
         const newCartItems = cartItems.filter((cartItem) => cartItem.id !== id);
         // Update cart total based of of the newly removed item
@@ -151,7 +151,7 @@ export default function GroceriesAppContainer({ products }) {
     };
 
     // Function to clear our the cart
-    const emptyCart = () => {
+    const handleEmptyCart = () => {
         // Set the cart items to an empty array
         setCartItems([]);
         // Set the cart total back to 0
@@ -167,16 +167,16 @@ export default function GroceriesAppContainer({ products }) {
                 <ProductsContainer
                     products={products}
                     productQuantities={productQuantities}
-                    addItemToCart={addItemToCart}
-                    updateQuantity={updateQuantity}
+                    handleAddItemToCart={handleAddItemToCart}
+                    handleUpdateQuantity={handleUpdateQuantity}
                 />
                 {/* Set up the CartContainer */}
                 <CartContainer
                     cartItems={cartItems}
                     cartTotal={cartTotal}
-                    emptyCart={emptyCart}
-                    removeItemFromCart={removeItemFromCart}
-                    updateQuantity={updateQuantity}
+                    handleEmptyCart={handleEmptyCart}
+                    handleRemoveItemFromCart={handleRemoveItemFromCart}
+                    handleUpdateQuantity={handleUpdateQuantity}
                 />
             </div>
         </>

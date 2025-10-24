@@ -8,8 +8,8 @@ export default function CartCard({
     price,
     quantity,
     total,
-    removeItemFromCart,
-    updateQuantity,
+    handleRemoveItemFromCart,
+    handleUpdateQuantity,
 }) {
     return (
         <div className="CartCard">
@@ -18,7 +18,7 @@ export default function CartCard({
                 <h4>{productName}</h4>
                 <p>{price}</p>
                 {/* Add a quantity counter with mode 1 to update cart instead of products */}
-                <QuantityCounter id={id} mode={1} itemQuantity={quantity} updateQuantity={updateQuantity} />
+                <QuantityCounter id={id} mode={1} itemQuantity={quantity} handleUpdateQuantity={handleUpdateQuantity} />
             </div>
             <div className="CartCardInfo">
                 {/* Add the total to the card and use to fixed to set the precision */}
@@ -27,7 +27,7 @@ export default function CartCard({
                 <button
                     className="RemoveButton"
                     onClick={() => {
-                        removeItemFromCart(id);
+                        handleRemoveItemFromCart(id);
                     }}
                 >
                     Remove

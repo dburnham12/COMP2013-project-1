@@ -1,7 +1,13 @@
 import CartCard from "./CartCard";
 
 // Wrapper for all cart items within the cart, also displays the Empty Cart and checkout buttons when active
-export default function CartContainer({ cartItems, cartTotal, emptyCart, removeItemFromCart, updateQuantity }) {
+export default function CartContainer({
+    cartItems,
+    cartTotal,
+    handleEmptyCart,
+    handleRemoveItemFromCart,
+    handleUpdateQuantity,
+}) {
     return (
         <div className="CartContainer">
             {/* Dipslay the number of cart items in the cart */}
@@ -15,13 +21,13 @@ export default function CartContainer({ cartItems, cartTotal, emptyCart, removeI
                         <CartCard
                             key={cartItem.id}
                             {...cartItem}
-                            removeItemFromCart={removeItemFromCart}
-                            updateQuantity={updateQuantity}
+                            handleRemoveItemFromCart={handleRemoveItemFromCart}
+                            handleUpdateQuantity={handleUpdateQuantity}
                         />
                     ))}
                     {/* Display the empty cart and checkout buttons */}
                     <div className="CartListBtns">
-                        <button className="RemoveButton" onClick={emptyCart}>
+                        <button className="RemoveButton" onClick={handleEmptyCart}>
                             Empty Cart
                         </button>
                         <button id="BuyButton">
