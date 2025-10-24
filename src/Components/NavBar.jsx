@@ -6,7 +6,7 @@ export default function NavBar({ cartCount }) {
                 <p className="NavUser">Hello, username</p>
             </div>
             <div className="NavDiv">
-                <h3 className="NavTitle">Groceries App</h3>
+                <h3 className="NavTitle">Groceries App 🍎</h3>
             </div>
             <div className="NavDiv">
                 {/* Check if the cart has items in it and choose which image to display */}

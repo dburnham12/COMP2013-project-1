@@ -40,7 +40,7 @@ export default function GroceriesAppContainer({ products }) {
             const newQuantities = productQuantities.map((prodQuantity) => {
                 // Once we find the item that we are adding to
                 if (prodQuantity.id === id) {
-                    // Add one to the current quantity
+                    // Set up a new value and increment by either + or - 1 (increment)
                     let newQuantity = prodQuantity.quantity + increment;
                     // Check if the quantity is within range, if not assign it to 0 as it cannot be negative
                     newQuantity = newQuantity > 0 ? newQuantity : 0;
@@ -56,6 +56,7 @@ export default function GroceriesAppContainer({ products }) {
         }
         // Any other number will handle adding to the cart total
         else {
+            // Set up a flag to check if the item should be removed
             let removeItem = false;
             // Use map to cycle through each item in cart items and update them
             const newCartItems = cartItems.map((item) => {
@@ -71,7 +72,7 @@ export default function GroceriesAppContainer({ products }) {
                         newQuantity === 0 &&
                         confirm(`Quantity reduced to 0 would you like to remove ${item.productName} from the cart?`)
                     ) {
-                        // if selected set our removeItem flag to true
+                        // if ok selected set our removeItem flag to true
                         removeItem = true;
                     } else {
                         // otherwise update the quantity to the new quantity or 1 if less than 1
@@ -89,7 +90,7 @@ export default function GroceriesAppContainer({ products }) {
 
             // If we are to remove the item then call removeItemFromCart function to do so
             if (removeItem) handleRemoveItemFromCart(id);
-            // Update cart items to our newly mapped array and update cart total
+            // Update cart items to our newly mapped array and update cart total if the item is not to be removed
             else {
                 setCartTotal(calculateCartTotal(newCartItems));
                 setCartItems(newCartItems);
