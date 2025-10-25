@@ -34,24 +34,23 @@ export default function GroceriesAppContainer({ products }) {
 
     // Function used to update the quantity of items either in cart card or product card
     const handleUpdateQuantity = (id, increment, mode) => {
-        // 0 is the mode to add to item total
+        // 0 is the mode to add to product total
         if (mode === 0) {
             // Use map to cycle through each item in product quantites and update them
             const newQuantities = productQuantities.map((prodQuantity) => {
                 // Once we find the item that we are adding to
                 if (prodQuantity.id === id) {
-                    // Set up a new value and increment by either + or - 1 (increment)
+                    // Set up a new value for quantity and increment by either a positive value (increment) or a negative value (decrement)
                     let newQuantity = prodQuantity.quantity + increment;
                     // Check if the quantity is within range, if not assign it to 0 as it cannot be negative
                     newQuantity = newQuantity > 0 ? newQuantity : 0;
                     // Update the item quantity for the specified item
                     prodQuantity = { ...prodQuantity, quantity: newQuantity };
                 }
-                // Return the item with either its original quantity or an updated on based off of wether or not it
-                // matches our found id
+                // Return the item with either its original quantity or an updated quantity
                 return prodQuantity;
             });
-            // Update item quantites to our newly mapped array
+            // Update product quantites to our newly mapped array
             setProductQuantities(newQuantities);
         }
         // Any other number will handle adding to the cart total
@@ -62,7 +61,7 @@ export default function GroceriesAppContainer({ products }) {
             const newCartItems = cartItems.map((item) => {
                 // If we have found our item to be updated
                 if (item.id === id) {
-                    // Set up a new value and increment by either + or - 1 (increment)
+                    // Set up a new value for quantity and increment by either a positive value (increment) or a negative value (decrement)
                     let newQuantity = item.quantity + increment;
                     // https://stackoverflow.com/questions/9334636/how-to-create-a-dialog-with-ok-and-cancel-options
                     // Used this article to set up an alert with Ok Cancel dialogue allowing the user to select their
@@ -77,14 +76,13 @@ export default function GroceriesAppContainer({ products }) {
                     } else {
                         // otherwise update the quantity to the new quantity or 1 if less than 1
                         newQuantity = newQuantity > 1 ? newQuantity : 1;
+                        // Update the item total based off of the new quantity
+                        const newTotal = calculateItemTotal(item.price, newQuantity);
+                        // Assign new quantity and total for the item
+                        item = { ...item, quantity: newQuantity, total: newTotal };
                     }
-                    // Update the item total based off of the new quantity
-                    const newTotal = calculateItemTotal(item.price, newQuantity);
-                    // Assign new quantity and total for the item
-                    item = { ...item, quantity: newQuantity, total: newTotal };
                 }
-                // Return the item with either its original quantity or an updated on based off of wether or not it
-                // matches our found id
+                // Return the item with either its original quantity and total or an updated quantity and total
                 return item;
             });
 
