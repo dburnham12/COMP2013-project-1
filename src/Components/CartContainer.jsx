@@ -3,7 +3,7 @@ import CartCard from "./CartCard";
 // Wrapper for all cart items within the cart, also displays the Empty Cart and checkout buttons when active
 export default function CartContainer({
     cartItems,
-    cartTotal,
+    calculateCartTotal,
     handleEmptyCart,
     handleRemoveItemFromCart,
     handleUpdateQuantity,
@@ -31,7 +31,7 @@ export default function CartContainer({
                             Empty Cart
                         </button>
                         <button id="BuyButton">
-                            Checkout <br />${cartTotal.toFixed(2)}
+                            Checkout <br />${calculateCartTotal(cartItems).toFixed(2)}
                         </button>
                     </div>
                 </>

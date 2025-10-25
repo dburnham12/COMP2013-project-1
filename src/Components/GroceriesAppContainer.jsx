@@ -17,8 +17,6 @@ export default function GroceriesAppContainer({ products }) {
 
     // State used to store all cart items for all products currently in the cart
     const [cartItems, setCartItems] = useState([]);
-    // State used to store the current cart total
-    const [cartTotal, setCartTotal] = useState(0);
 
     // Function used to calculate the item total based off of quantity and price
     const calculateItemTotal = (price, quantity) => {
@@ -90,7 +88,6 @@ export default function GroceriesAppContainer({ products }) {
             if (removeItem) handleRemoveItemFromCart(id);
             // Update cart items to our newly mapped array and update cart total if the item is not to be removed
             else {
-                setCartTotal(calculateCartTotal(newCartItems));
                 setCartItems(newCartItems);
             }
         }
@@ -133,8 +130,6 @@ export default function GroceriesAppContainer({ products }) {
             // Add the new item to the array of cart items
             newCartItems = [{ ...newItem, total: newTotal }, ...cartItems];
         }
-        // Update cart total based off of our new item
-        setCartTotal(calculateCartTotal(newCartItems));
         // Update cart items to be our updated array
         setCartItems(newCartItems);
     };
@@ -143,8 +138,6 @@ export default function GroceriesAppContainer({ products }) {
     const handleRemoveItemFromCart = (id) => {
         // Filter the items to only include items without a specified id
         const newCartItems = cartItems.filter((cartItem) => cartItem.id !== id);
-        // Update cart total based of of the newly removed item
-        setCartTotal(calculateCartTotal(newCartItems));
         // Update the cart items based off of the newly removed item
         setCartItems(newCartItems);
     };
@@ -153,8 +146,6 @@ export default function GroceriesAppContainer({ products }) {
     const handleEmptyCart = () => {
         // Set the cart items to an empty array
         setCartItems([]);
-        // Set the cart total back to 0
-        setCartTotal(0);
     };
 
     return (
@@ -172,7 +163,7 @@ export default function GroceriesAppContainer({ products }) {
                 {/* Set up the CartContainer */}
                 <CartContainer
                     cartItems={cartItems}
-                    cartTotal={cartTotal}
+                    calculateCartTotal={calculateCartTotal}
                     handleEmptyCart={handleEmptyCart}
                     handleRemoveItemFromCart={handleRemoveItemFromCart}
                     handleUpdateQuantity={handleUpdateQuantity}
